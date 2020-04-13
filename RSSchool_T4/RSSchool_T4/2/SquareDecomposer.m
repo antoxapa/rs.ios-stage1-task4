@@ -47,40 +47,40 @@
         return betweenArray;
         
         
-//        if (betweenArray.count !=0) {
-//            NSNumber *firstNumber = betweenArray.firstObject;
-//            if (betweenArray.count !=1) {
-//
-//                NSNumber *secondNumber = [betweenArray objectAtIndex:1];
-//                NSNumber *newSecondValue = [NSNumber numberWithInteger: secondNumber.integerValue -1];
-//
-//                [betweenArray removeAllObjects];
-//                [betweenArray addObject:firstNumber];
-//                [betweenArray addObject:newSecondValue];
-//
-//                incomingBalance = balance;
-//                incomingBalance -= pow(numberOfIterations,2);
-//                if (incomingBalance >0 || newSecondValue >0) {
-//                    NSMutableArray *newBetweenArray = [NSMutableArray array];
-//                    newBetweenArray = [self checkBalance:incomingBalance andIterations: newSecondValue.integerValue];
-//                    [newBetweenArray insertObject:firstNumber atIndex:0];
-//                    return newBetweenArray;
-//                }
-//            }
-//            return nil;
-//        }
-       
+        //        if (betweenArray.count !=0) {
+        //            NSNumber *firstNumber = betweenArray.firstObject;
+        //            if (betweenArray.count !=1) {
+        //
+        //                NSNumber *secondNumber = [betweenArray objectAtIndex:1];
+        //                NSNumber *newSecondValue = [NSNumber numberWithInteger: secondNumber.integerValue -1];
+        //
+        //                [betweenArray removeAllObjects];
+        //                [betweenArray addObject:firstNumber];
+        //                [betweenArray addObject:newSecondValue];
+        //
+        //                incomingBalance = balance;
+        //                incomingBalance -= pow(numberOfIterations,2);
+        //                if (incomingBalance >0 || newSecondValue >0) {
+        //                    NSMutableArray *newBetweenArray = [NSMutableArray array];
+        //                    newBetweenArray = [self checkBalance:incomingBalance andIterations: newSecondValue.integerValue];
+        //                    [newBetweenArray insertObject:firstNumber atIndex:0];
+        //                    return newBetweenArray;
+        //                }
+        //            }
+        //            return nil;
+        //        }
+        
         
         return nil;
     }
 }
-    
+
 - (NSMutableArray *)removeLastObject:(NSInteger)balance newArray:(NSMutableArray *)betweenArray andOldBetweenArray:(NSMutableArray *)oldBetweenArray isFirstIteration:(BOOL)currentIteration  {
     NSMutableArray *testArray = [NSMutableArray arrayWithArray:betweenArray];
     NSNumber *objectToRemove = oldBetweenArray.lastObject;
     NSInteger newBalance = balance;
     if (currentIteration) {
-    newBalance = balance + [NSNumber numberWithDouble: pow(objectToRemove.intValue, 2)].integerValue;
+        newBalance = balance + [NSNumber numberWithDouble: pow(objectToRemove.intValue, 2)].integerValue;
     }
     [testArray removeLastObject];
     [oldBetweenArray removeLastObject];
@@ -91,7 +91,7 @@
         return nil;
     }
     [testArray replaceObjectAtIndex:(testArray.count - 1) withObject:newLastObject];
-//    currentBalance -= pow(newLastObject.integerValue,2);
+    //    currentBalance -= pow(newLastObject.integerValue,2);
     
     NSMutableArray *resultArray = [NSMutableArray arrayWithArray: [self checkBalanceSecondChance:currentBalance andIterations:newLastObject.integerValue andInputArray:testArray andOldBetweenArray:oldBetweenArray andOldBalance:currentBalance]];
     return resultArray;
@@ -101,19 +101,19 @@
     NSInteger newBalance = incomingBalance;
     NSMutableArray *checkArray = [NSMutableArray arrayWithArray:newBetweenArray];
     for (NSInteger i = numberOfIterations; i > 0; i--) {
-           if (pow(i, 2) <= newBalance) {
-               newBalance -= pow(i, 2);
-               if (![checkArray containsObject:[NSNumber numberWithInteger:i]]){
-               [checkArray addObject:[NSNumber numberWithInteger:i]];
-               }
-           }
-       }
-       if (newBalance == 0) {
-           return checkArray;
-       } else {
-           NSMutableArray *result = [NSMutableArray arrayWithArray:[self removeLastObject:oldBalance newArray:newBetweenArray andOldBetweenArray:oldBetweenArray isFirstIteration:NO]];
-           return result;
-       }
+        if (pow(i, 2) <= newBalance) {
+            newBalance -= pow(i, 2);
+            if (![checkArray containsObject:[NSNumber numberWithInteger:i]]){
+                [checkArray addObject:[NSNumber numberWithInteger:i]];
+            }
+        }
+    }
+    if (newBalance == 0) {
+        return checkArray;
+    } else {
+        NSMutableArray *result = [NSMutableArray arrayWithArray:[self removeLastObject:oldBalance newArray:newBetweenArray andOldBetweenArray:oldBetweenArray isFirstIteration:NO]];
+        return result;
+    }
     return nil;
 }
 
